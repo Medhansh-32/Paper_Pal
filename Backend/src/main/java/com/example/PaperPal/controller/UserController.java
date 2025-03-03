@@ -279,7 +279,7 @@ public class UserController {
         if (isRegistered) {
             // If registration is successful
             log.info("User Registered");
-            URI redirectUri = URI.create("https://paperpals.onrender.com");
+            URI redirectUri = URI.create("http://localhost:8080");
             return ResponseEntity.status(HttpStatus.FOUND).location(redirectUri).build();
         } else {
             // If email/username is already taken, return error
