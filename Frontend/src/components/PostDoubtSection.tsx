@@ -14,7 +14,7 @@ const PostDoubtSection: React.FC = () => {
     if (!title.trim() || !description.trim()) return;
   
     setIsSubmitting(true);
-    const apiUrl=`https://paperpalprod.onrender.com/doubts/postDoubts`
+    const apiUrl=`http://localhost:8080doubts/postDoubts`
     const response=await fetch(apiUrl,{
       method:'POST',
       headers: {

@@ -38,7 +38,7 @@ const DoubtDetailPage: React.FC = () => {
       try {
         setIsLoading(true);
         
-        const response = await fetch('https://paperpalprod.onrender.com/doubts/allDoubts',{
+        const response = await fetch('http://localhost:8080/doubts/allDoubts',{
           credentials:"include"
         });
         
@@ -78,7 +78,7 @@ const DoubtDetailPage: React.FC = () => {
 
     const fetchReplies = async (doubtId: string) => {
       try {
-        const response = await fetch(`https://paperpalprod.onrender.com/doubts/getReply/${doubtId}`,{
+        const response = await fetch(`http://localhost:8080/doubts/getReply/${doubtId}`,{
           credentials:'include'
         });
         
@@ -111,7 +111,7 @@ const DoubtDetailPage: React.FC = () => {
       };
       
       console.log(replyPayload);
-      const response = await fetch('https://paperpalprod.onrender.com/doubts/addReply', {
+      const response = await fetch('http://localhost:8080/doubts/addReply', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

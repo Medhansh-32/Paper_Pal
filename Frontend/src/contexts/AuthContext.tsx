@@ -39,7 +39,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (email: string, password: string): Promise<void> => {
     try {
-      const apiUrl = 'https://paperpalprod.onrender.com/user/login';
+      const apiUrl = 'http://localhost:8080/user/login';
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -74,7 +74,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout =async () => {
-    const apiUrl="https://paperpalprod.onrender.com/user/logout"
+    const apiUrl="http://localhost:8080/user/logout"
 
     const response =await fetch(apiUrl,{
       credentials:'include'

@@ -85,7 +85,7 @@ const DownloadMaterialPage: React.FC = () => {
     
     try {
       // Note: We're not filtering by fileType in the API call
-      const apiUrl = `https://paperpalprod.onrender.com/userresponse/getlinks?course=${filters.course}&branch=${filters.branch}&semester=${filters.semester.charAt(filters.semester.length - 1)}`;
+      const apiUrl = `http://localhost:8080/userresponse/getlinks?course=${filters.course}&branch=${filters.branch}&semester=${filters.semester.charAt(filters.semester.length - 1)}`;
       
       const response = await fetch(apiUrl, {
         credentials: 'include',

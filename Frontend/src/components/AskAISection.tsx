@@ -14,7 +14,7 @@ const AskAISection: React.FC = () => {
 
     setIsLoading(true);
 
-    const apiUrl = `https://paperpalprod.onrender.com/ai/generateStream?prompt=${encodeURIComponent(question)}`;
+    const apiUrl=`http://localhost:8080/ai/generateStream?prompt=${encodeURIComponent(question)}`;
 
     try {
       const response = await fetch(apiUrl, {

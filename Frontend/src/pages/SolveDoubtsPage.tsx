@@ -31,7 +31,7 @@ const SolveDoubtsPage: React.FC = () => {
     const fetchDoubts = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get('https://paperpalprod.onrender.com/doubts/allDoubts', {
+        const response = await axios.get('http://localhost:8080/doubts/allDoubts', {
           withCredentials: true
         });
         

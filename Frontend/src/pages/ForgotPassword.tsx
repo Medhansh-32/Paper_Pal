@@ -49,7 +49,7 @@ const ForgotPasswordPage: React.FC = () => {
     setError(null);
     
     try {
-      const apiUrl=`https://paperpalprod.onrender.com/user/changePassword?email=${email}`
+      const apiUrl=`http://localhost:8080/user/changePassword?email=${email}`
       const response=await fetch(apiUrl,{
         method:"POST"
       })
@@ -82,7 +82,7 @@ const ForgotPasswordPage: React.FC = () => {
     setError(null);
     
     try {
-    const apiUrl= `https://paperpalprod.onrender.com/user/otp?email=${email}&otp=${otp}`
+    const apiUrl= `http://localhost:8080/user/otp?email=${email}&otp=${otp}`
     const response=await fetch(apiUrl,{
         method:'POST',
     });
@@ -123,7 +123,7 @@ const ForgotPasswordPage: React.FC = () => {
     setError(null);
     
     try {
-      const apiUrl=`https://paperpalprod.onrender.com//user/setNewPassword`
+      const apiUrl=`http://localhost:8080/user/setNewPassword`
       const response= await fetch(apiUrl,{
         method:'PUT',
         body:JSON.stringify({password:newPassword,

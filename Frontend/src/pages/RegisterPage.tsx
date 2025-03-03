@@ -68,7 +68,7 @@ const RegisterPage: React.FC = () => {
       return;
     }
     
-    const apiUrl = `https://paperpalprod.onrender.com/user/redirectHome`;
+    const apiUrl = `http://localhost:8080/user/redirectHome`;
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {

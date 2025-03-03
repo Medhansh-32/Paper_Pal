@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -148,7 +149,7 @@ public class UserController {
                             "        <p>Thank you!<br>PaperPal Team</p>\n" +
                             "    </div>\n" +
                             "    <div class=\"footer\">\n" +
-                            "        <p>&copy; 2024 PaperPal. All rights reserved.</p>\n" +
+                            "        <p>&copy; 2025 PaperPal. All rights reserved.</p>\n" +
                             "    </div>\n" +
                             "</div>\n" +
                             "\n" +
@@ -278,8 +279,8 @@ public class UserController {
         if (isRegistered) {
             // If registration is successful
             log.info("User Registered");
-            response.sendRedirect("/");
-            return ResponseEntity.ok("Registration successful");
+            URI redirectUri = URI.create("https://paperpals.onrender.com");
+            return ResponseEntity.status(HttpStatus.FOUND).location(redirectUri).build();
         } else {
             // If email/username is already taken, return error
             log.info("User not registered");
