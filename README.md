@@ -198,7 +198,7 @@ To run the application locally, follow these steps:
 
 ## 1. Clone the repository:
 
-`git clone https://github.com/Medhansh-32/PaperPal.git`
+`git clone https://github.com/Medhansh-32/Paper_Pal.git`
 
 ## 2. Navigate to the project directory:
 
