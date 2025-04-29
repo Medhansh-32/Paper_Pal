@@ -1,0 +1,38 @@
+version: '3.1'
+services:
+  paperpaldb:
+    image: medhansh32/paperpal:paperpaldb
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - p-network
+
+  paperpal:
+    image: medhansh32/paperpal:paperpal
+    depends_on:
+      - paperpal_backend
+    ports:
+      - 5173:5173
+    networks:
+      - p-network
+
+
+  paperpal_backend:
+    image: medhansh32/paperpal:paperpal_backend
+    depends_on:
+      - paperpaldb
+    ports:
+      - 8080:8080
+    networks:
+      - p-network
+
+
+
+volumes:
+  mongo_data:
+
+networks:
+  p-network:
+    driver: bridge
