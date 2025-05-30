@@ -192,32 +192,84 @@ The PaperPal application's frontend is built using React with TypeScript, featur
 - **Toast**: Notification system for success/error messages
 - **LoadingSpinner**: Visual indicator for loading states
 
-## Running the Application 🚀
+
+## 🚀 Running the Application
 
 To run the application locally, follow these steps:
 
-## 1. Clone the repository:
+---
 
-`git clone https://github.com/Medhansh-32/Paper_Pal.git`
+### 🧾 1. Clone the repository
 
-## 2. Navigate to the project directory:
+```bash
+git clone https://github.com/Medhansh-32/Paper_Pal.git
+```
 
-### For frontend
-1. `cd Frontend`
-2. `npm install`
-3. `npm run dev`
+### 📁 2. Navigate to the project directory
 
-### For backend
-1. `cd Backend`
-2. Add the data required in `application.properties`
-3. `mvn clean install`
-4. `java -jar target/PaperPal-0.0.1-SNAPSHOT.jar`
+#### 👉 For Frontend
 
-## 3. You are now ready to proceed:
+```bash
+cd Frontend
+npm install
+npm run dev
+```
 
-- The frontend is available at: [http://localhost:5173](http://localhost:5173)
-- The backend is available at: [http://localhost:8080](http://localhost:8080)
+#### 👉 For Backend
 
-## 4. Enjoy using the project?
+```bash
+cd Backend
+# Add the required configuration in `application.properties`
+mvn clean install
+java -jar target/PaperPal-0.0.1-SNAPSHOT.jar
+```
 
-If you find this project helpful or interesting, don't forget to give it a ⭐ on GitHub! Your support is greatly appreciated and helps the project grow!
+### 🐳 3. Alternatively, use Docker Compose (recommended)
+
+If you have Docker and Docker Compose installed, you can run the entire application using:
+
+```bash
+docker-compose up --build
+```
+
+This will build and start both the **frontend** and **backend** services together.
+
+- Frontend: http://localhost:5173
+- Backend: http://localhost:8080
+
+### 🌐 4. Access the Application
+
+- Frontend is available at: http://localhost:5173
+- Backend is available at: http://localhost:8080
+
+### ⭐ 5. Enjoy Using the Project?
+
+If you find this project helpful or interesting, don't forget to give it a **⭐ on GitHub**! Your support is greatly appreciated and helps the project grow!
+
+---
+
+## Additional Setup Information
+
+### Prerequisites
+
+- **Node.js** (v14 or higher)
+- **Java** (v11 or higher)
+- **Maven** (v3.6 or higher)
+- **Docker** and **Docker Compose** (for containerized deployment)
+
+### Configuration
+
+Make sure to configure your `application.properties` file in the Backend directory with the necessary database and API configurations before running the application.
+
+### Troubleshooting
+
+If you encounter any issues:
+
+1. Ensure all prerequisites are installed
+2. Check that ports 5173 and 8080 are available
+3. Verify your `application.properties` configuration
+4. For Docker issues, ensure Docker daemon is running
+
+### Support
+
+For additional support or questions, please visit the [GitHub repository](https://github.com/Medhansh-32/Paper_Pal) and create an issue.
