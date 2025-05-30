@@ -1,6 +1,5 @@
 package com.example.PaperPal;
 
-import com.example.PaperPal.service.ExamFileService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +15,6 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableAsync
 public class PaperPalApplication {
-
-	private ExamFileService examFileService;
-	public PaperPalApplication(ExamFileService examFileService) {
-		this.examFileService = examFileService;
-	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(PaperPalApplication.class, args);

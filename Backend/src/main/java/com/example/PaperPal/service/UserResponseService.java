@@ -2,20 +2,18 @@ package com.example.PaperPal.service;
 
 import com.example.PaperPal.entity.ExamFile;
 import com.example.PaperPal.entity.UserResponse;
+import com.example.PaperPal.interfaces.ExamFileService;
 import com.example.PaperPal.records.FileDto;
 import com.example.PaperPal.repository.UserResponseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 
 import java.io.IOException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -27,7 +25,7 @@ public class UserResponseService {
     private final ExamFileService examFileService;
 
     @Autowired
-    public UserResponseService(UserResponseRepository userResponseRepository, ExamFileService examFileService) {
+    public UserResponseService(UserResponseRepository userResponseRepository,  @Qualifier("imageKitUploadService") ExamFileService examFileService) {
         this.userResponseRepository = userResponseRepository;
         this.examFileService = examFileService;
     }
@@ -94,20 +92,5 @@ public class UserResponseService {
         }
             return null;
     }
-    public ResponseEntity<?> deleteByUserResponse(UserResponse userResponse) {
-
-       List<UserResponse> userResponse1=userResponseRepository.deleteByCourseAndBranchAndSemester(userResponse.getCourse(),
-                userResponse.getBranch(),
-                userResponse.getSemester());
-
-       if(userResponse1!=null && !userResponse1.isEmpty()){
-          for(int i=0;i<userResponse1.get(0).getExamFile().size();i++){
-              examFileService.deleteExamFile(userResponse1.get(0).getExamFile().get(i).getExamId());
-          }
-       return new ResponseEntity<>(HttpStatus.OK);
-       }
-       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
 
 }

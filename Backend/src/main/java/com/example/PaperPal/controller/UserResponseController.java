@@ -73,22 +73,5 @@ public class UserResponseController {
 
 
     }
-    @PostMapping("/delete")
-    public ResponseEntity deleteUserResponse(
-            @RequestParam("course") String course,
-            @RequestParam("branch") String branch,
-            @RequestParam("semester") String semester
-    ) throws JsonProcessingException {
-        try {
-            UserResponse userResponse = new UserResponse();
-            userResponse.setCourse(course);
-            userResponse.setBranch(branch);
-            userResponse.setSemester(Integer.parseInt(semester));
-            userResponseService.deleteByUserResponse(userResponse);
-            return new ResponseEntity<>(HttpStatus.OK) ;
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
 }

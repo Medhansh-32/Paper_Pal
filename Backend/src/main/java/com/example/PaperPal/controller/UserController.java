@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -52,13 +53,14 @@ public class UserController {
     private final JavaMailSender javaMailSender;
     private final UserDetailServiceImpl userDetailServiceImpl;
     private JWTService jwtService;
+    private String key;
 
 
-    public UserController(UserService userService, OtpService otpService, UserRepository userRepository, DoubtsRepository doubtsRepository, AuthenticationManager authenticationManager, JavaMailSender javaMailSender, UserDetailServiceImpl userDetailServiceImpl, JWTService jwtService) {
+    public UserController(UserService userService, OtpService otpService, UserRepository userRepository, DoubtsRepository doubtsRepository, AuthenticationManager authenticationManager, JavaMailSender javaMailSender, UserDetailServiceImpl userDetailServiceImpl, JWTService jwtService,@Value("${register.key}") String key) {
         this.userService = userService;
         this.otpService = otpService;
         this.userRepository = userRepository;
-        this.authenticationManager=authenticationManager;
+        this.authenticationManager = authenticationManager;
         this.doubtsRepository = doubtsRepository;
         this.javaMailSender = javaMailSender;
         this.userDetailServiceImpl = userDetailServiceImpl;
@@ -69,7 +71,7 @@ public class UserController {
     public ResponseEntity<String> register(@RequestBody UserDto user) throws MessagingException {
         log.info("req received");
         try {
-            String uniqueCode = bCryptPasswordEncoder.encode(user.getEmail());
+            String uniqueCode = bCryptPasswordEncoder.encode(user.getEmail()+key);
             String request = ServletUriComponentsBuilder.fromCurrentRequest().path("?code=" + uniqueCode).build().toString().replace("/user/redirectHome", "/user/activate");
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
@@ -193,8 +195,9 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
     @GetMapping("/logout")
-    public ResponseEntity  logout(HttpServletResponse response,HttpServletRequest request){
+    public ResponseEntity logout(HttpServletResponse response, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -231,7 +234,6 @@ public class UserController {
                                       HttpServletRequest request) throws IOException {
         if (otpService.validateOtp(email, otp)) {
             log.info("Checking otp...");
-
             otpVerifed.put(email, true);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
@@ -277,12 +279,10 @@ public class UserController {
             storeCode.remove(code);
         }
         if (isRegistered) {
-            // If registration is successful
             log.info("User Registered");
-            URI redirectUri = URI.create("http://localhost:8080");
+            URI redirectUri = URI.create("https://paperpals.onrender.com");
             return ResponseEntity.status(HttpStatus.FOUND).location(redirectUri).build();
         } else {
-            // If email/username is already taken, return error
             log.info("User not registered");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Email or Username already registered.....");

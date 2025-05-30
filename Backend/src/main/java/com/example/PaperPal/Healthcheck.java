@@ -1,7 +1,9 @@
 package com.example.PaperPal;
 
+
 import com.example.PaperPal.entity.UserResponse;
 import com.example.PaperPal.service.Pdfanalyzer;
+import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +28,7 @@ public class Healthcheck {
 
     @PostMapping("/aiTest")
     public void aiTest(@RequestParam("file") MultipartFile file) throws IOException {
-        pdfanalyzer.analyzePdf(null,"pyq","medhansh","title",file.getBytes(),file.getOriginalFilename());
+       UserResponse u= new UserResponse(new ObjectId("67c49e2efa07b6177b29f7b0"),"Bachelor of Technology","Computer Science Engineering",1,null);
+        pdfanalyzer.analyzePdf(u,"pyq","Medhansh Sharma","title",file.getBytes(),file.getOriginalFilename());
     }
-
 }
