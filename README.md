@@ -8,7 +8,6 @@ Welcome to the **PaperPal** application! This project is designed to manage and 
 - [API Endpoints](#api-endpoints-)
     - [Authentication API](#authentication-api-)
     - [User API](#user-api-)
-    - [File Management API](#file-management-api-)
     - [Doubts API](#doubts-api-)
     - [AI Assistant API](#ai-assistant-api-)
 - [Running the Application](#running-the-application-)
@@ -38,11 +37,11 @@ Moreover, when a PDF is uploaded, it is analyzed by AI to ensure it meets the re
 
 The Authentication API handles user registration, login, and authentication processes.
 
-- **POST /api/auth/register**: Registers a new user.
+- **POST /user/redirectHome**: Registers a new user.
     - **Request Body**: `{ username, email, password }`
     - **Response**: `{ message, token }`
 
-- **POST /api/auth/login**: Authenticates a user and provides a JWT token.
+- **POST /user/login**: Authenticates a user and provides a JWT token.
     - **Request Body**: `{ email, password }`
     - **Response**: `{ message, token, userData }`
 
@@ -50,88 +49,62 @@ The Authentication API handles user registration, login, and authentication proc
 
 The User API handles user-related actions such as password management and profile updates.
 
-- **POST /api/user/otp**: Sends an OTP for user verification.
+- **POST /user/changePassword**: Sends an OTP for user verification.
     - **Request Body**: `{ email }`
     - **Response**: `{ message, success }`
 
-- **POST /api/user/verify-otp**: Verifies the OTP entered by the user.
+- **POST /user/otp**: Verifies the OTP entered by the user.
     - **Request Body**: `{ email, otp }`
     - **Response**: `{ message, success }`
 
-- **PUT /api/user/change-password**: Changes the user's password.
+- **PUT /user/setNewPassword**: Changes the user's password.
     - **Request Body**: `{ email, newPassword }`
     - **Response**: `{ message, success }`
 
-- **GET /api/user/profile**: Retrieves the user's profile information.
-    - **Headers**: `Authorization: {JWT token}`
-    - **Response**: `{ userData }`
+- **GET user/activate**: Verifies the code and redirect to homepage.
+    -**Request Body**: `{ code }`
+    -**Response**: `{ redirect to paperpals.onrender.com}`
 
-- **PUT /api/user/profile**: Updates the user's profile information.
-    - **Headers**: `Authorization: {JWT token}`
-    - **Request Body**: `{ name, email, ... }`
-    - **Response**: `{ message, updatedData }`
+### UserResponse API 📚
 
-### File Management API 📄
+The UserResponse API manages uploading and retrieving educational files with course-specific metadata and PDF analysis capabilities.
 
-The File Management API handles operations related to uploading, downloading, and managing exam files.
+- **POST /userresponse**: Uploads and analyzes educational files.
+   - **Headers**: `Authorization: {JWT token}`
+   - **Request Body**: `form-data: { course, branch, semester, fileType, file, title, description }`
+   - **Response**: `HTTP 200 OK`
 
-- **POST /api/files/upload**: Uploads an exam file with associated metadata.
-    - **Headers**: `Authorization: {JWT token}`
-    - **Request Body**: `FormData { course, branch, semester, type, file }`
-    - **Response**: `{ message, fileData, success }`
-
-- **GET /api/files/list**: Gets a list of files based on filter criteria.
-    - **Headers**: `Authorization: {JWT token}`
-    - **Query Parameters**: `course, branch, semester`
-    - **Response**: `{ files }`
-
-- **GET /api/files/:id**: Downloads a specific file by ID.
-    - **Headers**: `Authorization: {JWT token}`
-    - **Path Parameter**: `id`
-    - **Response**: File content (binary)
-
-- **DELETE /api/files/:id**: Deletes a specific file.
-    - **Headers**: `Authorization: {JWT token}`
-    - **Path Parameter**: `id`
-    - **Response**: `{ message, success }`
-
-- **POST /api/files/validate**: Validates a file using AI to ensure it meets guidelines.
-    - **Headers**: `Authorization: {JWT token}`
-    - **Request Body**: `FormData { file }`
-    - **Response**: `{ valid, message }`
+- **GET /userresponse/getlinks**: Retrieves download links for files based on course criteria.
+   - **Headers**: `Authorization: {JWT token}`
+   - **Query Parameters**: `course, branch, semester` (required)
+   - **Response**: `{ List<FileDto> }`
 
 ### Doubts API 🤔
 
 The Doubts API manages posting, replying to, and retrieving doubts.
 
-- **POST /api/doubts**: Creates a new doubt.
+- **POST /doubts/postDoubts**: Creates a new doubt.
     - **Headers**: `Authorization: {JWT token}`
     - **Request Body**: `{ title, description }`
     - **Response**: `{ message, doubtData }`
 
-- **GET /api/doubts**: Retrieves all doubts with optional filtering.
+- **GET /doubts/allDoubts**: Retrieves all doubts with optional filtering.
     - **Headers**: `Authorization: {JWT token}`
     - **Query Parameters**: `user, solved` (optional)
     - **Response**: `{ doubts }`
 
-- **GET /api/doubts/:id**: Retrieves a specific doubt with its replies.
+- **GET /doubts/{id}**: Retrieves a specific doubt with its replies.
     - **Headers**: `Authorization: {JWT token}`
     - **Path Parameter**: `id`
     - **Response**: `{ doubt, replies }`
 
-- **POST /api/doubts/:id/reply**: Adds a reply to a doubt.
+- **POST /doubts/addReply**: Adds a reply to a doubt.
     - **Headers**: `Authorization: {JWT token}`
     - **Path Parameter**: `id`
     - **Request Body**: `{ content }`
     - **Response**: `{ message, reply }`
 
-- **PUT /api/doubts/:id/status**: Updates the status of a doubt (solved/unsolved).
-    - **Headers**: `Authorization: {JWT token}`
-    - **Path Parameter**: `id`
-    - **Request Body**: `{ solved }`
-    - **Response**: `{ message, doubt }`
-
-- **DELETE /api/doubts/:id**: Deletes a specific doubt.
+- **DELETE /doubts/deleteDoubt/{id}**: Deletes a specific doubt.
     - **Headers**: `Authorization: {JWT token}`
     - **Path Parameter**: `id`
     - **Response**: `{ message, success }`
@@ -144,11 +117,6 @@ The AI Assistant API provides interaction with the integrated AI assistant.
     - **Headers**: `Authorization: {JWT token}`
     - **Request Body**: `{ query }`
     - **Response**: `{ answer }`
-
-- **GET /api/ai/stream**: Establishes a stream connection for real-time AI responses.
-    - **Headers**: `Authorization: {JWT token}`
-    - **Query Parameters**: `query`
-    - **Response**: Server-Sent Events (SSE) stream with AI responses
 
 ## Frontend Components 🖼️
 
