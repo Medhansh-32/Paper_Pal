@@ -8,6 +8,7 @@ Welcome to the **PaperPal** application! This project is designed to manage and 
 - [API Endpoints](#api-endpoints-)
     - [Authentication API](#authentication-api-)
     - [User API](#user-api-)
+    - [User Response](#userresponse-api)
     - [Doubts API](#doubts-api-)
     - [AI Assistant API](#ai-assistant-api-)
 - [Running the Application](#running-the-application-)
