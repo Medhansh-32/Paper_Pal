@@ -200,7 +200,7 @@ If you have Docker and Docker Compose installed, you can run the entire applicat
 ```bash
 docker-compose up --build
 ```
-or
+If Docker v20.10 or greater use this : 
 
 
 ```bash
