@@ -200,6 +200,12 @@ If you have Docker and Docker Compose installed, you can run the entire applicat
 ```bash
 docker-compose up --build
 ```
+or
+
+
+```bash
+docker compose up --build
+```
 
 This will build and start both the **frontend** and **backend** services together.
 
